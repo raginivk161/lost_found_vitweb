@@ -11,14 +11,23 @@ let visionModel = null;
 let rawImageClass = null;
 let modelLoading = false;
 let modelError = null;
+let modelErrorTime = null;
+const MODEL_RETRY_MS = 60 * 1000; // retry after 1 minute if load failed
 
 // Initialize or get CLIP transformers models
 async function getPipelines() {
   if (tokenizer && textModel && processor && visionModel) {
     return { tokenizer, textModel, processor, visionModel, rawImageClass };
   }
+  // If errored, allow retry after MODEL_RETRY_MS (server restart mid-load, etc.)
   if (modelError) {
-    return null;
+    const elapsed = Date.now() - (modelErrorTime || 0);
+    if (elapsed < MODEL_RETRY_MS) return null;
+    // Reset for retry
+    console.log('[AI Matching] Retrying CLIP model load after previous failure...');
+    modelError = null;
+    modelErrorTime = null;
+    tokenizer = null; textModel = null; processor = null; visionModel = null;
   }
   if (modelLoading) {
     while (modelLoading) {
@@ -47,6 +56,7 @@ async function getPipelines() {
     return { tokenizer, textModel, processor, visionModel, rawImageClass };
   } catch (err) {
     modelError = err;
+    modelErrorTime = Date.now();
     modelLoading = false;
     console.warn('[AI Matching] Notice: CLIP model not available. Using robust TF-IDF fallback matching mode.', err.message);
     return null;
