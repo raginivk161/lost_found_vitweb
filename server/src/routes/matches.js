@@ -101,8 +101,8 @@ router.get('/:id', authenticate, (req, res) => {
         fi.title as found_title, fi.category as found_category, fi.description as found_description,
         fi.location as found_location, fi.date_occurred as found_date, fi.status as found_status,
         fi.user_id as found_user_id, fi.type as found_type, fi.item_location,
-        lu.name as lost_user_name, lu.email as lost_user_email, lu.phone as lost_user_phone,
-        fu.name as found_user_name, fu.email as found_user_email, fu.phone as found_user_phone
+        lu.name as lost_user_name, lu.email as lost_user_email, lu.phone as lost_user_phone, lu.registration_number as lost_user_reg,
+        fu.name as found_user_name, fu.email as found_user_email, fu.phone as found_user_phone, fu.registration_number as found_user_reg
       FROM matches m
       JOIN items li ON m.lost_item_id = li.id
       JOIN items fi ON m.found_item_id = fi.id
@@ -122,8 +122,10 @@ router.get('/:id', authenticate, (req, res) => {
     if (match.status !== 'verified') {
       delete match.lost_user_email;
       delete match.lost_user_phone;
+      delete match.lost_user_reg;
       delete match.found_user_email;
       delete match.found_user_phone;
+      delete match.found_user_reg;
     }
 
     // Get images
