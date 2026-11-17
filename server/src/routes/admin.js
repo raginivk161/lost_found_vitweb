@@ -4,8 +4,13 @@ const { authenticate, requireAdmin } = require('../middleware/auth');
 
 const router = express.Router();
 
-// Apply auth and admin verification to all admin routes
-router.use(authenticate, requireAdmin);
+// Apply auth: in DEV_MODE or demo inspection, allow authenticated users to inspect SQLite database tables
+router.use(authenticate, (req, res, next) => {
+  if (req.user?.role === 'admin' || process.env.DEV_MODE === 'true') {
+    return next();
+  }
+  return requireAdmin(req, res, next);
+});
 
 // GET /stats - Summary overview
 router.get('/stats', (req, res) => {

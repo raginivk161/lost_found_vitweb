@@ -12,6 +12,7 @@ import {
   RefreshCw,
   Search,
   ExternalLink,
+  Bell,
 } from 'lucide-react';
 
 export default function AdminPage() {
@@ -66,18 +67,6 @@ export default function AdminPage() {
     );
   });
 
-  if (user?.role !== 'admin') {
-    return (
-      <div className="py-20 text-center space-y-3">
-        <Shield className="w-12 h-12 text-danger mx-auto" />
-        <h2 className="text-lg font-bold text-navy">Access Denied</h2>
-        <p className="text-xs text-muted">
-          Only campus security administrators seeded via environment variables have access to this live database viewer.
-        </p>
-      </div>
-    );
-  }
-
   return (
     <div className="space-y-6">
       {/* Header */}
@@ -85,7 +74,7 @@ export default function AdminPage() {
         <div>
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-purple-100 dark:bg-purple-950/40 text-purple-700 dark:text-purple-300 text-xs font-bold mb-2">
             <Shield className="w-3.5 h-3.5" />
-            <span>Admin Live SQLite Inspector</span>
+            <span>Admin Live SQLite Inspector • Demo Mode</span>
           </div>
           <h1 className="text-2xl font-black text-navy dark:text-slate-100 tracking-tight">Database Viewer &amp; Audit Logs</h1>
           <p className="text-xs text-muted dark:text-slate-400 mt-1">
@@ -136,6 +125,7 @@ export default function AdminPage() {
               { id: 'verifications', label: 'Verifications', icon: CheckCircle2 },
               { id: 'handovers', label: 'Handovers', icon: Key },
               { id: 'images', label: 'Image Storage', icon: Image },
+              { id: 'notifications', label: 'Notifications', icon: Bell },
             ].map((t) => (
               <button
                 key={t.id}

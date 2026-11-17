@@ -8,6 +8,7 @@ import {
   Layers,
   User,
   Shield,
+  Database,
   Award,
   Sparkles,
 } from 'lucide-react';
@@ -21,11 +22,8 @@ export default function Sidebar() {
     { name: 'Report Item', path: '/report', icon: PlusCircle },
     { name: 'My Reports', path: '/my-reports', icon: Layers },
     { name: 'Profile & Settings', path: '/profile', icon: User },
+    { name: 'Admin DB Viewer', path: '/admin', icon: Database, badge: user?.role === 'admin' ? 'Admin' : 'Live DB' },
   ];
-
-  if (user?.role === 'admin') {
-    navItems.push({ name: 'Admin DB Viewer', path: '/admin', icon: Shield, badge: 'Admin' });
-  }
 
   return (
     <aside className="hidden md:flex flex-col w-64 bg-white dark:bg-slate-900 border-r border-slate-200/80 dark:border-slate-800 min-h-[calc(100vh-4rem)] p-4 justify-between transition-colors">
