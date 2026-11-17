@@ -172,6 +172,37 @@ router.get('/stats/dashboard', authenticate, (req, res) => {
   }
 });
 
+// GET /active-lifecycle - Get active user items formatted for lifecycle progress card
+router.get('/active-lifecycle', authenticate, (req, res) => {
+  try {
+    const db = getDb();
+    const userId = req.user.id;
+
+    // Fetch user items with their best match and handover details
+    const items = db.prepare(`
+      SELECT i.*,
+             (SELECT m.id FROM matches m WHERE (m.lost_item_id = i.id OR m.found_item_id = i.id) AND m.score >= 0.5 ORDER BY m.score DESC LIMIT 1) as match_id,
+             (SELECT m.status FROM matches m WHERE (m.lost_item_id = i.id OR m.found_item_id = i.id) AND m.score >= 0.5 ORDER BY m.score DESC LIMIT 1) as match_status,
+             (SELECT m.score FROM matches m WHERE (m.lost_item_id = i.id OR m.found_item_id = i.id) AND m.score >= 0.5 ORDER BY m.score DESC LIMIT 1) as match_score,
+             (SELECT h.status FROM handovers h JOIN matches m ON h.match_id = m.id WHERE (m.lost_item_id = i.id OR m.found_item_id = i.id) LIMIT 1) as handover_status
+      FROM items i
+      WHERE i.user_id = ?
+      ORDER BY CASE i.status
+        WHEN 'verifying' THEN 1
+        WHEN 'matched' THEN 2
+        WHEN 'open' THEN 3
+        WHEN 'returned' THEN 4
+        ELSE 5 END,
+        i.created_at DESC
+    `).all(userId);
+
+    res.json({ items });
+  } catch (err) {
+    console.error('Active lifecycle error:', err);
+    res.status(500).json({ error: 'Failed to fetch active lifecycle items.' });
+  }
+});
+
 // GET /my - My items
 router.get('/my', authenticate, (req, res) => {
   try {

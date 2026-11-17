@@ -19,6 +19,7 @@ import {
 } from 'lucide-react';
 import MatchCard from '../components/MatchCard';
 import ItemCard from '../components/ItemCard';
+import ActiveReportLifecycle from '../components/ActiveReportLifecycle';
 
 export default function DashboardPage() {
   const { user } = useAuth();
@@ -33,6 +34,7 @@ export default function DashboardPage() {
 
   const [matches, setMatches] = useState([]);
   const [recentItems, setRecentItems] = useState([]);
+  const [lifecycleItems, setLifecycleItems] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -49,14 +51,21 @@ export default function DashboardPage() {
         setStats(statsData);
       }
 
-      // 2. AI Matches for current user
+      // 2. Active Lifecycle reports
+      const lifecycleRes = await fetch('/api/items/active-lifecycle', { credentials: 'include' });
+      if (lifecycleRes.ok) {
+        const lifecycleData = await lifecycleRes.json();
+        setLifecycleItems(lifecycleData.items || []);
+      }
+
+      // 3. AI Matches for current user
       const matchesRes = await fetch('/api/matches', { credentials: 'include' });
       if (matchesRes.ok) {
         const matchesData = await matchesRes.json();
         setMatches(matchesData.matches || []);
       }
 
-      // 3. Recent campus items
+      // 4. Recent campus items
       const itemsRes = await fetch('/api/items?limit=4', { credentials: 'include' });
       if (itemsRes.ok) {
         const itemsData = await itemsRes.json();
@@ -117,6 +126,11 @@ export default function DashboardPage() {
         {/* Decorative background shape */}
         <div className="absolute -right-10 -bottom-10 w-64 h-64 rounded-full bg-white/5 blur-2xl pointer-events-none" />
       </div>
+
+      {/* Active Report Lifecycle Progress Bar */}
+      {lifecycleItems.length > 0 && (
+        <ActiveReportLifecycle items={lifecycleItems} />
+      )}
 
       {/* Stats Cards Grid */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
