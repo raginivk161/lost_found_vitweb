@@ -1,0 +1,19 @@
+{
+  "name": "vit-lost-and-found",
+  "version": "1.0.0",
+  "description": "VIT Lost & Found - AI-powered campus lost and found system",
+  "private": true,
+  "scripts": {
+    "install:all": "cd server && npm install && cd ../client && npm install",
+    "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
+    "dev:server": "cd server && npm run dev",
+    "dev:client": "cd client && npm run dev",
+    "seed": "cd server && node scripts/seed.js",
+    "prepare-model": "cd server && node scripts/prepare-model.js",
+    "test:match": "cd server && node scripts/test-match.js",
+    "build": "cd client && npm run build"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.5"
+  }
+}
