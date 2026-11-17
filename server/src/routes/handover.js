@@ -92,7 +92,7 @@ router.get('/status/:matchId', authenticate, (req, res) => {
   try {
     const db = getDb();
     const handover = db.prepare(`
-      SELECT h.id, h.method, h.status, h.created_at, h.completed_at, h.owner_id, h.finder_id
+      SELECT h.id, h.code, h.method, h.status, h.created_at, h.completed_at, h.owner_id, h.finder_id
       FROM handovers h
       WHERE h.match_id = ?
     `).get(req.params.matchId);
@@ -101,6 +101,11 @@ router.get('/status/:matchId', authenticate, (req, res) => {
 
     if (req.user.id !== handover.owner_id && req.user.id !== handover.finder_id && req.user.role !== 'admin') {
       return res.status(403).json({ error: 'Access denied.' });
+    }
+
+    // Hide plaintext code from finder (only owner and admin see it)
+    if (req.user.id !== handover.owner_id && req.user.role !== 'admin') {
+      delete handover.code;
     }
 
     res.json({ handover });

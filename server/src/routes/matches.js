@@ -135,8 +135,13 @@ router.get('/:id', authenticate, (req, res) => {
     // Get verification history
     const verifications = db.prepare('SELECT * FROM verifications WHERE match_id = ? ORDER BY created_at DESC').all(match.id);
 
-    // Get handover info
-    const handover = db.prepare('SELECT id, method, status, created_at, completed_at FROM handovers WHERE match_id = ?').get(match.id);
+    // Get handover info - reveal 6-digit code to the owner of the lost item or admin
+    let handover = null;
+    if (req.user.id === match.lost_user_id || req.user.role === 'admin') {
+      handover = db.prepare('SELECT id, code, method, status, created_at, completed_at FROM handovers WHERE match_id = ?').get(match.id);
+    } else {
+      handover = db.prepare('SELECT id, method, status, created_at, completed_at FROM handovers WHERE match_id = ?').get(match.id);
+    }
 
     res.json({
       match: {
@@ -225,6 +230,7 @@ router.post('/:id/claim', authenticate, async (req, res) => {
       db.prepare(`
         INSERT INTO handovers (match_id, code, code_hash, owner_id, finder_id)
         VALUES (?, ?, ?, ?, ?)
+        ON CONFLICT(match_id) DO UPDATE SET code = excluded.code, code_hash = excluded.code_hash, status = 'pending', completed_at = NULL
       `).run(match.id, code, codeHash, req.user.id, match.found_user_id);
 
       // Notify both users
