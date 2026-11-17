@@ -7,6 +7,7 @@ import {
   ShieldAlert,
   CheckCircle2,
   AlertCircle,
+  AlertTriangle,
   HelpCircle,
   ArrowRight,
   Phone,
@@ -184,6 +185,7 @@ ${user?.name || 'Owner'}
 ${user?.registration_number ? `Registration No: ${user.registration_number}\n` : ''}${user?.phone ? `Phone: ${user.phone}` : ''}`;
 
   const ownerMailtoUrl = `mailto:${match.found_user_email || ''}?subject=${encodeURIComponent(ownerEmailSubject)}&body=${encodeURIComponent(ownerEmailBody)}`;
+  const ownerGmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(match.found_user_email || '')}&su=${encodeURIComponent(ownerEmailSubject)}&body=${encodeURIComponent(ownerEmailBody)}`;
 
   // Pre-written email template for Finder emailing Owner
   const finderEmailSubject = `[VIT Lost & Found] Ready for return: "${match.found_title || match.lost_title}"`;
@@ -203,6 +205,7 @@ ${user?.name || 'Finder'}
 ${user?.registration_number ? `Registration No: ${user.registration_number}\n` : ''}${user?.phone ? `Phone: ${user.phone}` : ''}`;
 
   const finderMailtoUrl = `mailto:${match.lost_user_email || ''}?subject=${encodeURIComponent(finderEmailSubject)}&body=${encodeURIComponent(finderEmailBody)}`;
+  const finderGmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(match.lost_user_email || '')}&su=${encodeURIComponent(finderEmailSubject)}&body=${encodeURIComponent(finderEmailBody)}`;
 
   return (
     <div className="max-w-4xl mx-auto space-y-6">
@@ -408,48 +411,68 @@ ${user?.registration_number ? `Registration No: ${user.registration_number}\n` :
           {/* 1. If owner hasn't verified yet */}
           {isOwner && !isVerified && (
             <div className="space-y-4">
-              <div className="p-4 rounded-2xl bg-blue-50/70 dark:bg-blue-950/30 border border-blue-200/80 dark:border-blue-900/40 text-blue-900 dark:text-blue-300 text-xs leading-relaxed">
-                <p className="font-bold">Step 1: Verify Ownership</p>
-                <p className="mt-1">
-                  The finder noted a secret detail when reporting this item. To prove this is yours, describe a unique identifying mark, contents, or sticker below.
-                </p>
-              </div>
-
-              {claimError && (
-                <div className="p-3 rounded-xl bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-900/50 text-danger text-xs flex items-center gap-2">
-                  <AlertCircle className="w-4 h-4 flex-shrink-0" />
-                  <span>{claimError}</span>
+              {(match.status === 'rejected' || (match.verifications && match.verifications.length >= 3)) ? (
+                <div className="p-5 rounded-2xl bg-amber-50 dark:bg-amber-950/40 border-2 border-amber-300 dark:border-amber-700/60 text-amber-900 dark:text-amber-200 text-xs space-y-2.5">
+                  <div className="flex items-center gap-2 font-bold text-sm text-amber-800 dark:text-amber-300">
+                    <AlertTriangle className="w-5 h-5 text-amber-600 dark:text-amber-400 flex-shrink-0" />
+                    <span>Claim Verification Forwarded to Campus Security Admin</span>
+                  </div>
+                  <p className="leading-relaxed">
+                    You have reached the maximum allowed automated verification attempts (3/3). For student security and anti-theft protection, your claim has been safely locked and forwarded to the <strong>Admin Console</strong> for manual review.
+                  </p>
+                  <div className="p-3 bg-white/70 dark:bg-slate-900/60 rounded-xl border border-amber-200 dark:border-amber-800/50 space-y-1 text-[11px]">
+                    <div className="font-semibold text-amber-900 dark:text-amber-200">What happens next?</div>
+                    <p className="text-amber-800 dark:text-amber-300">
+                      The campus admin will compare your submitted description against the finder's report. Once the admin approves the match, your 6-digit Handover Code and Finder contact details will immediately unlock here.
+                    </p>
+                  </div>
                 </div>
+              ) : (
+                <>
+                  <div className="p-4 rounded-2xl bg-blue-50/70 dark:bg-blue-950/30 border border-blue-200/80 dark:border-blue-900/40 text-blue-900 dark:text-blue-300 text-xs leading-relaxed">
+                    <p className="font-bold">Step 1: Verify Ownership</p>
+                    <p className="mt-1">
+                      The finder noted a secret detail when reporting this item. To prove this is yours, describe a unique identifying mark, contents, or sticker below.
+                    </p>
+                  </div>
+
+                  {claimError && (
+                    <div className="p-3 rounded-xl bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-900/50 text-danger text-xs flex items-center gap-2">
+                      <AlertCircle className="w-4 h-4 flex-shrink-0" />
+                      <span>{claimError}</span>
+                    </div>
+                  )}
+
+                  {claimResult && !claimResult.verified && (
+                    <div className="p-3 rounded-xl bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-900/50 text-amber-900 dark:text-amber-300 text-xs">
+                      {claimResult.message}
+                    </div>
+                  )}
+
+                  <form onSubmit={handleClaimSubmit} className="space-y-3">
+                    <label className="block text-xs font-bold text-navy dark:text-slate-200">
+                      Describe a unique mark, serial, or detail only you would know:
+                    </label>
+                    <textarea
+                      rows={2}
+                      required
+                      value={claimAnswer}
+                      onChange={(e) => setClaimAnswer(e.target.value)}
+                      placeholder="e.g. Has a small sticker of Iron Man on the back, or ₹500 note inside the card slot"
+                      className="w-full px-3.5 py-2.5 text-xs rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition resize-none"
+                    />
+
+                    <button
+                      type="submit"
+                      disabled={claiming}
+                      className="py-2.5 px-5 rounded-xl bg-primary hover:bg-primary-hover text-white text-xs font-bold shadow-md transition disabled:opacity-50 flex items-center gap-2"
+                    >
+                      {claiming ? 'Verifying with Finder\'s Secret...' : 'Submit Claim Verification'}
+                      {!claiming && <ArrowRight className="w-4 h-4" />}
+                    </button>
+                  </form>
+                </>
               )}
-
-              {claimResult && !claimResult.verified && (
-                <div className="p-3 rounded-xl bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-900/50 text-amber-900 dark:text-amber-300 text-xs">
-                  {claimResult.message}
-                </div>
-              )}
-
-              <form onSubmit={handleClaimSubmit} className="space-y-3">
-                <label className="block text-xs font-bold text-navy dark:text-slate-200">
-                  Describe a unique mark, serial, or detail only you would know:
-                </label>
-                <textarea
-                  rows={2}
-                  required
-                  value={claimAnswer}
-                  onChange={(e) => setClaimAnswer(e.target.value)}
-                  placeholder="e.g. Has a small sticker of Iron Man on the back, or ₹500 note inside the card slot"
-                  className="w-full px-3.5 py-2.5 text-xs rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition resize-none"
-                />
-
-                <button
-                  type="submit"
-                  disabled={claiming}
-                  className="py-2.5 px-5 rounded-xl bg-primary hover:bg-primary-hover text-white text-xs font-bold shadow-md transition disabled:opacity-50 flex items-center gap-2"
-                >
-                  {claiming ? 'Verifying with Finder\'s Secret...' : 'Submit Claim Verification'}
-                  {!claiming && <ArrowRight className="w-4 h-4" />}
-                </button>
-              </form>
             </div>
           )}
 
@@ -499,12 +522,15 @@ ${user?.registration_number ? `Registration No: ${user.registration_number}\n` :
 
                 <div className="flex flex-wrap items-center gap-4 text-slate-700 dark:text-slate-300">
                   <a
-                    href={ownerMailtoUrl}
-                    title="Click to open email client with pre-written recovery details"
+                    href={ownerGmailUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title="Click to open Gmail Webmail with pre-written recovery message"
                     className="inline-flex items-center gap-1.5 font-semibold text-primary dark:text-blue-400 hover:underline"
                   >
                     <Mail className="w-4 h-4 text-primary dark:text-blue-400" />
                     <span>{match.found_user_email}</span>
+                    <ExternalLink className="w-3 h-3 text-slate-400" />
                   </a>
 
                   {match.found_user_phone && (
@@ -521,11 +547,14 @@ ${user?.registration_number ? `Registration No: ${user.registration_number}\n` :
                 {/* Pre-written Email CTA */}
                 <div className="pt-1 flex flex-wrap items-center gap-2.5">
                   <a
-                    href={ownerMailtoUrl}
+                    href={ownerGmailUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-primary hover:bg-primary-hover text-white text-xs font-bold shadow-sm transition"
                   >
                     <Send className="w-3.5 h-3.5" />
-                    <span>Open Pre-Written Recovery Email</span>
+                    <span>Open in Gmail (Pre-written Details)</span>
+                    <ExternalLink className="w-3 h-3 opacity-80" />
                   </a>
 
                   <button
@@ -606,12 +635,15 @@ ${user?.registration_number ? `Registration No: ${user.registration_number}\n` :
 
                     <div className="flex flex-wrap items-center gap-4 text-slate-700 dark:text-slate-300">
                       <a
-                        href={finderMailtoUrl}
-                        title="Click to open email client with return notice"
+                        href={finderGmailUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        title="Click to open Gmail Webmail with return notice"
                         className="inline-flex items-center gap-1.5 font-semibold text-primary dark:text-blue-400 hover:underline"
                       >
                         <Mail className="w-4 h-4 text-primary dark:text-blue-400" />
                         <span>{match.lost_user_email}</span>
+                        <ExternalLink className="w-3 h-3 text-slate-400" />
                       </a>
 
                       {match.lost_user_phone && (
@@ -628,11 +660,14 @@ ${user?.registration_number ? `Registration No: ${user.registration_number}\n` :
                     {/* Pre-written Email CTA for Finder */}
                     <div className="pt-1 flex flex-wrap items-center gap-2.5">
                       <a
-                        href={finderMailtoUrl}
+                        href={finderGmailUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-primary hover:bg-primary-hover text-white text-xs font-bold shadow-sm transition"
                       >
                         <Send className="w-3.5 h-3.5" />
-                        <span>Email Owner Return Notice</span>
+                        <span>Open in Gmail (Return Notice)</span>
+                        <ExternalLink className="w-3 h-3 opacity-80" />
                       </a>
 
                       <button
