@@ -162,8 +162,8 @@ export default function ProfilePage() {
     <div className="max-w-4xl mx-auto space-y-6">
       {/* Header */}
       <div>
-        <h1 className="text-2xl font-black text-navy tracking-tight">Profile &amp; Settings</h1>
-        <p className="text-xs text-muted mt-1">
+        <h1 className="text-2xl font-black text-navy dark:text-slate-100 tracking-tight">Profile &amp; Settings</h1>
+        <p className="text-xs text-muted dark:text-slate-400 mt-1">
           Manage your personal details, campus notification preferences, and account security.
         </p>
       </div>
@@ -171,8 +171,8 @@ export default function ProfilePage() {
       {statusMessage.text && (
         <div className={`p-4 rounded-2xl text-xs flex items-center gap-2.5 ${
           statusMessage.type === 'success'
-            ? 'bg-emerald-50 text-emerald-800 border border-emerald-200'
-            : 'bg-red-50 text-danger border border-red-200'
+            ? 'bg-emerald-50 dark:bg-emerald-950/40 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-900/50'
+            : 'bg-red-50 dark:bg-red-950/40 text-danger dark:text-red-400 border border-red-200 dark:border-red-900/50'
         }`}>
           {statusMessage.type === 'success' ? <CheckCircle2 className="w-4 h-4 flex-shrink-0" /> : <AlertCircle className="w-4 h-4 flex-shrink-0" />}
           <span>{statusMessage.text}</span>
@@ -181,88 +181,88 @@ export default function ProfilePage() {
 
       {/* Karma & Stats Summary */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-        <div className="p-4 rounded-2xl bg-white border border-slate-200/80 shadow-soft">
-          <div className="flex items-center gap-1.5 text-xs text-emerald-600 font-bold mb-2">
+        <div className="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-soft">
+          <div className="flex items-center gap-1.5 text-xs text-emerald-600 dark:text-emerald-400 font-bold mb-2">
             <Award className="w-4 h-4" />
             <span>Karma Points</span>
           </div>
-          <p className="text-2xl font-black text-navy">{stats?.karma_points || 0}</p>
-          <p className="text-[10px] text-muted mt-0.5">+10 pts per returned item</p>
+          <p className="text-2xl font-black text-navy dark:text-slate-100">{stats?.karma_points || 0}</p>
+          <p className="text-[10px] text-muted dark:text-slate-400 mt-0.5">+10 pts per returned item</p>
         </div>
 
-        <div className="p-4 rounded-2xl bg-white border border-slate-200/80 shadow-soft">
-          <div className="flex items-center gap-1.5 text-xs text-amber-600 font-bold mb-2">
+        <div className="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-soft">
+          <div className="flex items-center gap-1.5 text-xs text-amber-600 dark:text-amber-400 font-bold mb-2">
             <Layers className="w-4 h-4" />
             <span>Items Reported Lost</span>
           </div>
-          <p className="text-2xl font-black text-navy">{stats?.items_lost || 0}</p>
+          <p className="text-2xl font-black text-navy dark:text-slate-100">{stats?.items_lost || 0}</p>
         </div>
 
-        <div className="p-4 rounded-2xl bg-white border border-slate-200/80 shadow-soft">
-          <div className="flex items-center gap-1.5 text-xs text-blue-600 font-bold mb-2">
+        <div className="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-soft">
+          <div className="flex items-center gap-1.5 text-xs text-blue-600 dark:text-blue-400 font-bold mb-2">
             <Layers className="w-4 h-4" />
             <span>Items Reported Found</span>
           </div>
-          <p className="text-2xl font-black text-navy">{stats?.items_found || 0}</p>
+          <p className="text-2xl font-black text-navy dark:text-slate-100">{stats?.items_found || 0}</p>
         </div>
 
-        <div className="p-4 rounded-2xl bg-white border border-slate-200/80 shadow-soft">
-          <div className="flex items-center gap-1.5 text-xs text-purple-600 font-bold mb-2">
+        <div className="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-soft">
+          <div className="flex items-center gap-1.5 text-xs text-purple-600 dark:text-purple-400 font-bold mb-2">
             <Award className="w-4 h-4" />
             <span>Returned &amp; Handed Over</span>
           </div>
-          <p className="text-2xl font-black text-navy">{stats?.items_returned || 0}</p>
+          <p className="text-2xl font-black text-navy dark:text-slate-100">{stats?.items_returned || 0}</p>
         </div>
       </div>
 
       {/* Edit Details Card */}
-      <div className="bg-white rounded-3xl border border-slate-200/80 shadow-soft p-6 sm:p-8 space-y-5">
-        <h3 className="font-bold text-navy text-sm flex items-center gap-2">
-          <User className="w-4 h-4 text-primary" />
+      <div className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/80 dark:border-slate-800 shadow-soft p-6 sm:p-8 space-y-5">
+        <h3 className="font-bold text-navy dark:text-slate-100 text-sm flex items-center gap-2">
+          <User className="w-4 h-4 text-primary dark:text-blue-400" />
           <span>Student Credentials</span>
         </h3>
 
         <form onSubmit={handleProfileUpdate} className="space-y-4">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1">Full Name</label>
+              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Full Name</label>
               <input
                 type="text"
                 required
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="w-full px-3.5 py-2.5 text-xs rounded-xl border border-slate-200 focus:border-primary outline-none"
+                className="w-full px-3.5 py-2.5 text-xs rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 focus:border-primary outline-none"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1">Phone Number (optional)</label>
+              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Phone Number (optional)</label>
               <input
                 type="tel"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
                 placeholder="+91 98765 43210"
-                className="w-full px-3.5 py-2.5 text-xs rounded-xl border border-slate-200 focus:border-primary outline-none"
+                className="w-full px-3.5 py-2.5 text-xs rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:border-primary outline-none"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1">VIT Email (Read-only)</label>
+              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">VIT Email (Read-only)</label>
               <input
                 type="text"
                 disabled
                 value={user?.email || ''}
-                className="w-full px-3.5 py-2.5 text-xs rounded-xl border border-slate-200 bg-slate-50 text-slate-500 font-mono"
+                className="w-full px-3.5 py-2.5 text-xs rounded-xl border border-slate-200 dark:border-slate-750 bg-slate-50 dark:bg-slate-800/60 text-slate-500 dark:text-slate-400 font-mono"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1">Registration Number (Read-only)</label>
+              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Registration Number (Read-only)</label>
               <input
                 type="text"
                 disabled
                 value={user?.registration_number || ''}
-                className="w-full px-3.5 py-2.5 text-xs rounded-xl border border-slate-200 bg-slate-50 text-slate-500 font-mono uppercase"
+                className="w-full px-3.5 py-2.5 text-xs rounded-xl border border-slate-200 dark:border-slate-750 bg-slate-50 dark:bg-slate-800/60 text-slate-500 dark:text-slate-400 font-mono uppercase"
               />
             </div>
           </div>
@@ -280,27 +280,27 @@ export default function ProfilePage() {
       </div>
 
       {/* Change Password Card */}
-      <div className="bg-white rounded-3xl border border-slate-200/80 shadow-soft p-6 sm:p-8 space-y-5">
-        <h3 className="font-bold text-navy text-sm flex items-center gap-2">
-          <Lock className="w-4 h-4 text-primary" />
+      <div className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/80 dark:border-slate-800 shadow-soft p-6 sm:p-8 space-y-5">
+        <h3 className="font-bold text-navy dark:text-slate-100 text-sm flex items-center gap-2">
+          <Lock className="w-4 h-4 text-primary dark:text-blue-400" />
           <span>Change Account Password</span>
         </h3>
 
         <form onSubmit={handlePasswordChange} className="space-y-4 max-w-lg">
           <div>
-            <label className="block text-xs font-semibold text-slate-700 mb-1">Current Password</label>
+            <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Current Password</label>
             <input
               type="password"
               required
               value={currentPassword}
               onChange={(e) => setCurrentPassword(e.target.value)}
               placeholder="••••••••"
-              className="w-full px-3.5 py-2.5 text-xs rounded-xl border border-slate-200 focus:border-primary outline-none"
+              className="w-full px-3.5 py-2.5 text-xs rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 focus:border-primary outline-none"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-slate-700 mb-1">New Password (min 8 characters)</label>
+            <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">New Password (min 8 characters)</label>
             <input
               type="password"
               required
@@ -308,7 +308,7 @@ export default function ProfilePage() {
               value={newPassword}
               onChange={(e) => setNewPassword(e.target.value)}
               placeholder="••••••••"
-              className="w-full px-3.5 py-2.5 text-xs rounded-xl border border-slate-200 focus:border-primary outline-none"
+              className="w-full px-3.5 py-2.5 text-xs rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 focus:border-primary outline-none"
             />
           </div>
 
@@ -316,7 +316,7 @@ export default function ProfilePage() {
             <button
               type="submit"
               disabled={savingPassword}
-              className="px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-900 text-white text-xs font-bold shadow-md transition disabled:opacity-50"
+              className="px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-900 dark:bg-slate-700 dark:hover:bg-slate-600 text-white text-xs font-bold shadow-md transition disabled:opacity-50"
             >
               {savingPassword ? 'Updating...' : 'Update Password'}
             </button>
@@ -325,17 +325,17 @@ export default function ProfilePage() {
       </div>
 
       {/* Notification Preferences */}
-      <div className="bg-white rounded-3xl border border-slate-200/80 shadow-soft p-6 sm:p-8 space-y-4">
-        <h3 className="font-bold text-navy text-sm flex items-center gap-2">
-          <Bell className="w-4 h-4 text-primary" />
+      <div className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/80 dark:border-slate-800 shadow-soft p-6 sm:p-8 space-y-4">
+        <h3 className="font-bold text-navy dark:text-slate-100 text-sm flex items-center gap-2">
+          <Bell className="w-4 h-4 text-primary dark:text-blue-400" />
           <span>Notification Preferences</span>
         </h3>
 
         <div className="space-y-3">
-          <label className="flex items-center justify-between p-3 rounded-2xl bg-slate-50 border border-slate-100 cursor-pointer">
+          <label className="flex items-center justify-between p-3 rounded-2xl bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 cursor-pointer">
             <div>
-              <p className="text-xs font-bold text-navy">In-App Match &amp; Verification Alerts</p>
-              <p className="text-[11px] text-muted">Receive notification pill updates when a candidate item is discovered</p>
+              <p className="text-xs font-bold text-navy dark:text-slate-100">In-App Match &amp; Verification Alerts</p>
+              <p className="text-[11px] text-muted dark:text-slate-400">Receive notification pill updates when a candidate item is discovered</p>
             </div>
             <input
               type="checkbox"
@@ -345,10 +345,10 @@ export default function ProfilePage() {
             />
           </label>
 
-          <label className="flex items-center justify-between p-3 rounded-2xl bg-slate-50 border border-slate-100 cursor-pointer">
+          <label className="flex items-center justify-between p-3 rounded-2xl bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 cursor-pointer">
             <div>
-              <p className="text-xs font-bold text-navy">Email Dispatches</p>
-              <p className="text-[11px] text-muted">Send automated alerts to your VIT email when a match is verified</p>
+              <p className="text-xs font-bold text-navy dark:text-slate-100">Email Dispatches</p>
+              <p className="text-[11px] text-muted dark:text-slate-400">Send automated alerts to your VIT email when a match is verified</p>
             </div>
             <input
               type="checkbox"
@@ -361,12 +361,12 @@ export default function ProfilePage() {
       </div>
 
       {/* Danger Zone */}
-      <div className="bg-red-50/50 rounded-3xl border border-red-200 p-6 sm:p-8 space-y-4">
+      <div className="bg-red-50/50 dark:bg-red-950/20 rounded-3xl border border-red-200 dark:border-red-900/40 p-6 sm:p-8 space-y-4">
         <h3 className="font-bold text-danger text-sm flex items-center gap-2">
           <ShieldAlert className="w-4 h-4" />
           <span>Danger Zone</span>
         </h3>
-        <p className="text-xs text-slate-600 leading-relaxed">
+        <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
           Permanently delete your student account and all linked records. All uploaded photographs in our file storage will be unlinked and wiped.
         </p>
         <button

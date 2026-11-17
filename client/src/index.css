@@ -4,7 +4,7 @@
 
 @layer base {
   body {
-    @apply bg-background text-textMain font-sans;
+    @apply bg-background text-textMain font-sans dark:bg-slate-950 dark:text-slate-100 transition-colors duration-200;
   }
 }
 

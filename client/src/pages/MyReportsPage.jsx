@@ -101,8 +101,8 @@ export default function MyReportsPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-black text-navy tracking-tight">My Reports &amp; Matches</h1>
-          <p className="text-xs text-muted mt-1">
+          <h1 className="text-2xl font-black text-navy dark:text-slate-100 tracking-tight">My Reports &amp; Matches</h1>
+          <p className="text-xs text-muted dark:text-slate-400 mt-1">
             Track your open lost reports, items you found, active AI matches, and returned history.
           </p>
         </div>
@@ -117,13 +117,13 @@ export default function MyReportsPage() {
       </div>
 
       {/* Tabs */}
-      <div className="flex border-b border-slate-200/80 gap-2 overflow-x-auto pb-px">
+      <div className="flex border-b border-slate-200/80 dark:border-slate-800 gap-2 overflow-x-auto pb-px">
         <button
           onClick={() => setSearchParams({ tab: 'lost' })}
           className={`px-4 py-2.5 text-xs font-bold border-b-2 flex items-center gap-2 whitespace-nowrap transition ${
             activeTab === 'lost'
-              ? 'border-amber-500 text-amber-600'
-              : 'border-transparent text-muted hover:text-navy'
+              ? 'border-amber-500 text-amber-600 dark:text-amber-400'
+              : 'border-transparent text-muted dark:text-slate-400 hover:text-navy dark:hover:text-slate-200'
           }`}
         >
           <AlertCircle className="w-4 h-4" />
@@ -134,8 +134,8 @@ export default function MyReportsPage() {
           onClick={() => setSearchParams({ tab: 'found' })}
           className={`px-4 py-2.5 text-xs font-bold border-b-2 flex items-center gap-2 whitespace-nowrap transition ${
             activeTab === 'found'
-              ? 'border-emerald-500 text-emerald-600'
-              : 'border-transparent text-muted hover:text-navy'
+              ? 'border-emerald-500 text-emerald-600 dark:text-emerald-400'
+              : 'border-transparent text-muted dark:text-slate-400 hover:text-navy dark:hover:text-slate-200'
           }`}
         >
           <CheckCircle2 className="w-4 h-4" />
@@ -146,8 +146,8 @@ export default function MyReportsPage() {
           onClick={() => setSearchParams({ tab: 'matches' })}
           className={`px-4 py-2.5 text-xs font-bold border-b-2 flex items-center gap-2 whitespace-nowrap transition ${
             activeTab === 'matches'
-              ? 'border-primary text-primary'
-              : 'border-transparent text-muted hover:text-navy'
+              ? 'border-primary text-primary dark:text-blue-400'
+              : 'border-transparent text-muted dark:text-slate-400 hover:text-navy dark:hover:text-slate-200'
           }`}
         >
           <Sparkles className="w-4 h-4" />
@@ -158,8 +158,8 @@ export default function MyReportsPage() {
           onClick={() => setSearchParams({ tab: 'returned' })}
           className={`px-4 py-2.5 text-xs font-bold border-b-2 flex items-center gap-2 whitespace-nowrap transition ${
             activeTab === 'returned'
-              ? 'border-purple-600 text-purple-700'
-              : 'border-transparent text-muted hover:text-navy'
+              ? 'border-purple-600 text-purple-700 dark:text-purple-400'
+              : 'border-transparent text-muted dark:text-slate-400 hover:text-navy dark:hover:text-slate-200'
           }`}
         >
           <Award className="w-4 h-4" />
@@ -169,15 +169,15 @@ export default function MyReportsPage() {
 
       {/* Tab Content */}
       {loading ? (
-        <div className="py-20 text-center text-muted text-xs animate-pulse">
+        <div className="py-20 text-center text-muted dark:text-slate-400 text-xs animate-pulse">
           Loading your reports...
         </div>
       ) : activeTab === 'lost' ? (
         lostItems.length === 0 ? (
-          <div className="bg-white rounded-3xl border border-slate-200/80 p-12 text-center shadow-soft">
+          <div className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/80 dark:border-slate-800 p-12 text-center shadow-soft">
             <AlertCircle className="w-10 h-10 text-amber-500 mx-auto mb-3 opacity-60" />
-            <h3 className="font-bold text-navy text-sm">No Active Lost Reports</h3>
-            <p className="text-xs text-muted max-w-sm mx-auto mt-1">
+            <h3 className="font-bold text-navy dark:text-slate-100 text-sm">No Active Lost Reports</h3>
+            <p className="text-xs text-muted dark:text-slate-400 max-w-sm mx-auto mt-1">
               If you misplaced something on campus, report it now to activate instant AI detection.
             </p>
             <Link to="/report?type=lost" className="inline-block mt-4 px-4 py-2 rounded-xl bg-amber-500 text-white text-xs font-bold">
@@ -199,10 +199,10 @@ export default function MyReportsPage() {
         )
       ) : activeTab === 'found' ? (
         foundItems.length === 0 ? (
-          <div className="bg-white rounded-3xl border border-slate-200/80 p-12 text-center shadow-soft">
+          <div className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/80 dark:border-slate-800 p-12 text-center shadow-soft">
             <CheckCircle2 className="w-10 h-10 text-emerald-500 mx-auto mb-3 opacity-60" />
-            <h3 className="font-bold text-navy text-sm">No Active Found Reports</h3>
-            <p className="text-xs text-muted max-w-sm mx-auto mt-1">
+            <h3 className="font-bold text-navy dark:text-slate-100 text-sm">No Active Found Reports</h3>
+            <p className="text-xs text-muted dark:text-slate-400 max-w-sm mx-auto mt-1">
               Found an abandoned item in class or hostels? Report it and earn campus karma points!
             </p>
             <Link to="/report?type=found" className="inline-block mt-4 px-4 py-2 rounded-xl bg-emerald-500 text-white text-xs font-bold">
@@ -224,10 +224,10 @@ export default function MyReportsPage() {
         )
       ) : activeTab === 'matches' ? (
         matches.length === 0 ? (
-          <div className="bg-white rounded-3xl border border-slate-200/80 p-12 text-center shadow-soft">
+          <div className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/80 dark:border-slate-800 p-12 text-center shadow-soft">
             <Sparkles className="w-10 h-10 text-primary mx-auto mb-3 opacity-60" />
-            <h3 className="font-bold text-navy text-sm">No Active Matches Found Yet</h3>
-            <p className="text-xs text-muted max-w-sm mx-auto mt-1">
+            <h3 className="font-bold text-navy dark:text-slate-100 text-sm">No Active Matches Found Yet</h3>
+            <p className="text-xs text-muted dark:text-slate-400 max-w-sm mx-auto mt-1">
               Our neural matching algorithm runs automatically after every submission. Matches above 50% will appear here.
             </p>
           </div>
@@ -241,10 +241,10 @@ export default function MyReportsPage() {
       ) : (
         /* Returned tab */
         returnedItems.length === 0 ? (
-          <div className="bg-white rounded-3xl border border-slate-200/80 p-12 text-center shadow-soft">
+          <div className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/80 dark:border-slate-800 p-12 text-center shadow-soft">
             <Award className="w-10 h-10 text-purple-500 mx-auto mb-3 opacity-60" />
-            <h3 className="font-bold text-navy text-sm">No Returned Items Yet</h3>
-            <p className="text-xs text-muted max-w-sm mx-auto mt-1">
+            <h3 className="font-bold text-navy dark:text-slate-100 text-sm">No Returned Items Yet</h3>
+            <p className="text-xs text-muted dark:text-slate-400 max-w-sm mx-auto mt-1">
               Completed handovers with verified digital codes will be archived here.
             </p>
           </div>
@@ -260,38 +260,38 @@ export default function MyReportsPage() {
       {/* Edit Item Modal */}
       {editingItem && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-navy-dark/40 backdrop-blur-sm animate-fadeIn">
-          <div className="bg-white rounded-3xl border border-slate-200 shadow-hover p-6 w-full max-w-md space-y-4">
-            <h3 className="font-bold text-navy text-base">Edit Report</h3>
+          <div className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-700 shadow-hover p-6 w-full max-w-md space-y-4">
+            <h3 className="font-bold text-navy dark:text-slate-100 text-base">Edit Report</h3>
             <form onSubmit={handleSaveEdit} className="space-y-3">
               <div>
-                <label className="block text-xs font-semibold text-slate-700 mb-1">Title</label>
+                <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Title</label>
                 <input
                   type="text"
                   required
                   value={editTitle}
                   onChange={(e) => setEditTitle(e.target.value)}
-                  className="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 focus:border-primary outline-none"
+                  className="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 focus:border-primary outline-none"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-700 mb-1">Location Details</label>
+                <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Location Details</label>
                 <input
                   type="text"
                   value={editLocation}
                   onChange={(e) => setEditLocation(e.target.value)}
-                  className="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 focus:border-primary outline-none"
+                  className="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 focus:border-primary outline-none"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-700 mb-1">Description</label>
+                <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Description</label>
                 <textarea
                   rows={3}
                   required
                   value={editDescription}
                   onChange={(e) => setEditDescription(e.target.value)}
-                  className="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 focus:border-primary outline-none resize-none"
+                  className="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 focus:border-primary outline-none resize-none"
                 />
               </div>
 
@@ -299,7 +299,7 @@ export default function MyReportsPage() {
                 <button
                   type="button"
                   onClick={() => setEditingItem(null)}
-                  className="px-4 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:bg-slate-100"
+                  className="px-4 py-2 rounded-xl text-xs font-semibold text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"
                 >
                   Cancel
                 </button>

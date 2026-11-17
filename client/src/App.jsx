@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
+import { ThemeProvider } from './contexts/ThemeContext';
 import Navbar from './components/Navbar';
 import Sidebar from './components/Sidebar';
 import BottomNav from './components/BottomNav';
@@ -42,7 +43,7 @@ function AppLayout({ children }) {
   const { user } = useAuth();
 
   return (
-    <div className="min-h-screen bg-background flex flex-col">
+    <div className="min-h-screen bg-background dark:bg-slate-950 text-textMain dark:text-slate-100 flex flex-col transition-colors duration-200">
       <DevBanner />
       <Navbar />
       <div className="flex-1 flex max-w-7xl w-full mx-auto pb-16 md:pb-6">
@@ -58,9 +59,10 @@ function AppLayout({ children }) {
 
 export default function App() {
   return (
-    <AuthProvider>
-      <BrowserRouter>
-        <Routes>
+    <ThemeProvider>
+      <AuthProvider>
+        <BrowserRouter>
+          <Routes>
           {/* Public Splash */}
           <Route path="/" element={<SplashPage />} />
 
@@ -165,5 +167,6 @@ export default function App() {
         </Routes>
       </BrowserRouter>
     </AuthProvider>
+    </ThemeProvider>
   );
 }

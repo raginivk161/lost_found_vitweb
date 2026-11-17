@@ -86,31 +86,31 @@ export default function NotificationModal({ isOpen, onClose, onRefreshCount }) {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-navy-dark/40 backdrop-blur-sm animate-fadeIn">
-      <div className="bg-surface rounded-2xl shadow-hover border border-slate-200/80 w-full max-w-lg max-h-[85vh] flex flex-col overflow-hidden">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-navy-dark/40 dark:bg-black/60 backdrop-blur-sm animate-fadeIn">
+      <div className="bg-surface dark:bg-slate-900 rounded-2xl shadow-hover border border-slate-200/80 dark:border-slate-800 w-full max-w-lg max-h-[85vh] flex flex-col overflow-hidden">
         {/* Header */}
-        <div className="p-4 border-b border-slate-100 flex items-center justify-between bg-slate-50/50">
+        <div className="p-4 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between bg-slate-50/50 dark:bg-slate-850">
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
+            <div className="w-8 h-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center">
               <Bell className="w-4 h-4" />
             </div>
             <div>
-              <h3 className="font-bold text-navy text-base">Notifications</h3>
-              <p className="text-xs text-muted">Stay updated on your lost & found matches</p>
+              <h3 className="font-bold text-navy dark:text-white text-base">Notifications</h3>
+              <p className="text-xs text-muted dark:text-slate-400">Stay updated on your lost & found matches</p>
             </div>
           </div>
           <div className="flex items-center gap-1">
             {notifications.some(n => !n.read) && (
               <button
                 onClick={markAllRead}
-                className="text-xs text-primary hover:text-primary-hover font-medium px-2 py-1 rounded hover:bg-primary/5 transition"
+                className="text-xs text-primary dark:text-blue-400 hover:text-primary-hover font-medium px-2 py-1 rounded hover:bg-primary/5 transition"
               >
                 Mark all read
               </button>
             )}
             <button
               onClick={onClose}
-              className="p-1.5 rounded-lg text-muted hover:text-navy hover:bg-slate-100 transition"
+              className="p-1.5 rounded-lg text-muted dark:text-slate-400 hover:text-navy dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition"
             >
               <X className="w-4 h-4" />
             </button>
@@ -120,16 +120,16 @@ export default function NotificationModal({ isOpen, onClose, onRefreshCount }) {
         {/* Content */}
         <div className="overflow-y-auto p-3 space-y-2 flex-1">
           {loading ? (
-            <div className="py-12 text-center text-muted text-sm animate-pulse">
+            <div className="py-12 text-center text-muted dark:text-slate-400 text-sm animate-pulse">
               Loading updates...
             </div>
           ) : notifications.length === 0 ? (
             <div className="py-12 text-center">
-              <div className="w-12 h-12 rounded-full bg-slate-100 text-muted mx-auto flex items-center justify-center mb-3">
+              <div className="w-12 h-12 rounded-full bg-slate-100 dark:bg-slate-800 text-muted mx-auto flex items-center justify-center mb-3">
                 <Bell className="w-5 h-5 opacity-40" />
               </div>
-              <p className="text-sm font-semibold text-slate-700">No notifications yet</p>
-              <p className="text-xs text-muted mt-1">When an AI match is found or verified, you'll be notified here.</p>
+              <p className="text-sm font-semibold text-slate-700 dark:text-slate-200">No notifications yet</p>
+              <p className="text-xs text-muted dark:text-slate-400 mt-1">When an AI match is found or verified, you'll be notified here.</p>
             </div>
           ) : (
             notifications.map(notif => (
@@ -138,8 +138,8 @@ export default function NotificationModal({ isOpen, onClose, onRefreshCount }) {
                 onClick={() => handleNotifClick(notif)}
                 className={`p-3.5 rounded-xl border text-left cursor-pointer transition flex items-start gap-3 ${
                   notif.read
-                    ? 'bg-white border-slate-100 hover:border-slate-200 opacity-80'
-                    : 'bg-primary/5 border-primary/20 hover:border-primary/40'
+                    ? 'bg-white dark:bg-slate-900 border-slate-100 dark:border-slate-800 hover:border-slate-200 dark:hover:border-slate-700 opacity-80'
+                    : 'bg-primary/5 dark:bg-blue-950/30 border-primary/20 dark:border-blue-800 hover:border-primary/40'
                 }`}
               >
                 <div className={`mt-0.5 w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0 ${
@@ -158,14 +158,14 @@ export default function NotificationModal({ isOpen, onClose, onRefreshCount }) {
 
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center justify-between gap-2">
-                    <p className={`text-xs font-semibold truncate ${notif.read ? 'text-slate-800' : 'text-primary'}`}>
+                    <p className={`text-xs font-semibold truncate ${notif.read ? 'text-slate-800 dark:text-slate-200' : 'text-primary dark:text-blue-400'}`}>
                       {notif.title}
                     </p>
-                    <span className="text-[10px] text-muted flex-shrink-0">
+                    <span className="text-[10px] text-muted dark:text-slate-400 flex-shrink-0">
                       {new Date(notif.created_at + (notif.created_at.includes('Z') ? '' : 'Z')).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}
                     </span>
                   </div>
-                  <p className="text-xs text-slate-600 mt-1 line-clamp-2 leading-relaxed">
+                  <p className="text-xs text-slate-600 dark:text-slate-300 mt-1 line-clamp-2 leading-relaxed">
                     {notif.message}
                   </p>
                 </div>

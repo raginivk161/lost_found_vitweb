@@ -103,7 +103,7 @@ export default function ItemDetailPage() {
       <div className="flex items-center justify-between">
         <button
           onClick={() => navigate(-1)}
-          className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-500 hover:text-navy transition"
+          className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-500 hover:text-navy dark:hover:text-slate-200 transition"
         >
           <ChevronLeft className="w-4 h-4" />
           <span>Back</span>
@@ -112,7 +112,7 @@ export default function ItemDetailPage() {
         {isOwner && ['open', 'matched'].includes(item.status) && (
           <button
             onClick={handleDelete}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold text-danger hover:bg-red-50 border border-red-200 transition"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold text-danger hover:bg-red-50 dark:hover:bg-red-950/40 border border-red-200 dark:border-red-900/50 transition"
           >
             <Trash2 className="w-3.5 h-3.5" />
             <span>Delete Report</span>
@@ -122,12 +122,12 @@ export default function ItemDetailPage() {
 
       {/* Just submitted banner */}
       {justSubmitted && (
-        <div className="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-900 text-xs flex items-center justify-between animate-fadeIn">
+        <div className="p-4 rounded-2xl bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800/40 text-emerald-900 dark:text-emerald-300 text-xs flex items-center justify-between animate-fadeIn">
           <div className="flex items-center gap-2">
-            <CheckCircle2 className="w-5 h-5 text-emerald-600 flex-shrink-0" />
+            <CheckCircle2 className="w-5 h-5 text-emerald-600 dark:text-emerald-400 flex-shrink-0" />
             <div>
               <p className="font-bold">Report successfully filed on campus!</p>
-              <p className="text-[11px] text-emerald-700 mt-0.5">
+              <p className="text-[11px] text-emerald-700 dark:text-emerald-400 mt-0.5">
                 AI matching executed immediately. Any potential counterpart reports are highlighted below.
               </p>
             </div>
@@ -136,10 +136,10 @@ export default function ItemDetailPage() {
       )}
 
       {/* Main Details Card */}
-      <div className="bg-white rounded-3xl border border-slate-200/80 shadow-soft overflow-hidden">
+      <div className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/80 dark:border-slate-800 shadow-soft overflow-hidden">
         <div className="grid grid-cols-1 md:grid-cols-2">
           {/* Photo */}
-          <div className="bg-slate-100 flex items-center justify-center p-4 min-h-[280px]">
+          <div className="bg-slate-100 dark:bg-slate-800 flex items-center justify-center p-4 min-h-[280px]">
             {item.images && item.images.length > 0 ? (
               <img
                 src={`/uploads/${item.images[0].filename}`}
@@ -147,7 +147,7 @@ export default function ItemDetailPage() {
                 className="max-h-72 w-full object-contain rounded-2xl"
               />
             ) : (
-              <div className="text-center p-6 text-muted">
+              <div className="text-center p-6 text-muted dark:text-slate-400">
                 <Tag className="w-10 h-10 mx-auto mb-2 opacity-30" />
                 <p className="text-xs font-semibold">No photograph provided</p>
                 <p className="text-[10px] mt-0.5">Matched using textual semantics &amp; categories</p>
@@ -165,24 +165,24 @@ export default function ItemDetailPage() {
                   {item.type}
                 </span>
 
-                <span className="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-slate-100 text-slate-700 border border-slate-200">
+                <span className="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
                   Status: {item.status}
                 </span>
               </div>
 
-              <h1 className="text-xl font-black text-navy">{item.title}</h1>
+              <h1 className="text-xl font-black text-navy dark:text-slate-100">{item.title}</h1>
 
-              <div className="mt-3 flex items-center gap-1.5 text-xs font-semibold text-primary">
+              <div className="mt-3 flex items-center gap-1.5 text-xs font-semibold text-primary dark:text-blue-400">
                 <Tag className="w-3.5 h-3.5" />
                 <span>{item.category}</span>
               </div>
 
-              <p className="mt-3 text-xs text-slate-600 leading-relaxed">
+              <p className="mt-3 text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
                 {item.description}
               </p>
             </div>
 
-            <div className="pt-4 border-t border-slate-100 space-y-2 text-xs text-slate-600">
+            <div className="pt-4 border-t border-slate-100 dark:border-slate-800 space-y-2 text-xs text-slate-600 dark:text-slate-400">
               <p className="flex items-center gap-2">
                 <MapPin className="w-4 h-4 text-slate-400 flex-shrink-0" />
                 <span>{item.location} {item.location_detail ? `(${item.location_detail})` : ''}</span>
@@ -199,9 +199,9 @@ export default function ItemDetailPage() {
               </p>
 
               {item.secret_detail && (
-                <div className="mt-2 p-3 rounded-xl bg-purple-50 border border-purple-200 text-purple-900 text-[11px]">
+                <div className="mt-2 p-3 rounded-xl bg-purple-50 dark:bg-purple-950/30 border border-purple-200 dark:border-purple-800/40 text-purple-900 dark:text-purple-300 text-[11px]">
                   <p className="font-bold flex items-center gap-1">
-                    <Lock className="w-3 h-3 text-purple-600" />
+                    <Lock className="w-3 h-3 text-purple-600 dark:text-purple-400" />
                     <span>Your Recorded Secret Detail:</span>
                   </p>
                   <p className="mt-0.5">{item.secret_detail}</p>
@@ -216,18 +216,18 @@ export default function ItemDetailPage() {
       {isOwner && (
         <div className="space-y-4 pt-4">
           <div className="flex items-center gap-2">
-            <div className="w-7 h-7 rounded-lg bg-primary/10 text-primary flex items-center justify-center">
+            <div className="w-7 h-7 rounded-lg bg-primary/10 text-primary dark:text-blue-400 flex items-center justify-center">
               <Sparkles className="w-4 h-4" />
             </div>
             <div>
-              <h2 className="text-base font-bold text-navy">AI Counterpart Matches</h2>
-              <p className="text-xs text-muted">Potential pairings identified by the CLIP multi-modal network</p>
+              <h2 className="text-base font-bold text-navy dark:text-slate-100">AI Counterpart Matches</h2>
+              <p className="text-xs text-muted dark:text-slate-400">Potential pairings identified by the CLIP multi-modal network</p>
             </div>
           </div>
 
           {matches.length === 0 ? (
-            <div className="p-8 bg-white rounded-3xl border border-slate-200/80 text-center shadow-soft">
-              <p className="text-xs text-muted">
+            <div className="p-8 bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/80 dark:border-slate-800 text-center shadow-soft">
+              <p className="text-xs text-muted dark:text-slate-400">
                 No active counterpart matches found yet for this report. As new opposite reports are submitted, they will be evaluated instantly.
               </p>
             </div>

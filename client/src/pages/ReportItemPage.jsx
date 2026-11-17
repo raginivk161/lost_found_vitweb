@@ -177,22 +177,22 @@ export default function ReportItemPage() {
     <div className="max-w-3xl mx-auto space-y-6">
       {/* Header */}
       <div>
-        <h1 className="text-2xl font-black text-navy tracking-tight">Report Campus Item</h1>
-        <p className="text-xs text-muted mt-1">
+        <h1 className="text-2xl font-black text-navy dark:text-slate-100 tracking-tight">Report Campus Item</h1>
+        <p className="text-xs text-muted dark:text-slate-400 mt-1">
           Provide accurate details to maximize AI matching accuracy across campus.
         </p>
       </div>
 
-      <div className="bg-white rounded-3xl border border-slate-200/80 shadow-soft p-6 sm:p-8">
+      <div className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/80 dark:border-slate-800 shadow-soft p-6 sm:p-8">
         {/* Type Toggle */}
-        <div className="grid grid-cols-2 gap-3 p-1.5 bg-slate-100 rounded-2xl mb-6">
+        <div className="grid grid-cols-2 gap-3 p-1.5 bg-slate-100 dark:bg-slate-800 rounded-2xl mb-6">
           <button
             type="button"
             onClick={() => setType('lost')}
             className={`py-3 rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center gap-2 transition ${
               type === 'lost'
                 ? 'bg-amber-500 text-white shadow-md'
-                : 'text-slate-600 hover:text-navy'
+                : 'text-slate-600 dark:text-slate-300 hover:text-navy dark:hover:text-white'
             }`}
           >
             <AlertCircle className="w-4 h-4" />
@@ -205,7 +205,7 @@ export default function ReportItemPage() {
             className={`py-3 rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center gap-2 transition ${
               type === 'found'
                 ? 'bg-emerald-500 text-white shadow-md'
-                : 'text-slate-600 hover:text-navy'
+                : 'text-slate-600 dark:text-slate-300 hover:text-navy dark:hover:text-white'
             }`}
           >
             <CheckCircle2 className="w-4 h-4" />
@@ -214,7 +214,7 @@ export default function ReportItemPage() {
         </div>
 
         {error && (
-          <div className="mb-6 p-4 rounded-xl bg-red-50 border border-red-200 text-danger text-xs flex items-center gap-2.5">
+          <div className="mb-6 p-4 rounded-xl bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-900/50 text-danger text-xs flex items-center gap-2.5">
             <AlertCircle className="w-4 h-4 flex-shrink-0" />
             <span>{error}</span>
           </div>
@@ -223,7 +223,7 @@ export default function ReportItemPage() {
         <form onSubmit={handleSubmit} className="space-y-5">
           {/* Title */}
           <div>
-            <label className="block text-xs font-bold text-navy mb-1.5">
+            <label className="block text-xs font-bold text-navy dark:text-slate-200 mb-1.5">
               Item Title <span className="text-danger">*</span>
             </label>
             <input
@@ -232,20 +232,20 @@ export default function ReportItemPage() {
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               placeholder={type === 'lost' ? "e.g. Black Leather Tommy Hilfiger Wallet" : "e.g. Casio Scientific Calculator fx-991EX"}
-              className="w-full px-3.5 py-2.5 text-xs rounded-xl border border-slate-200 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition"
+              className="w-full px-3.5 py-2.5 text-xs rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition"
             />
           </div>
 
           {/* Category & Date */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-bold text-navy mb-1.5">
+              <label className="block text-xs font-bold text-navy dark:text-slate-200 mb-1.5">
                 Category <span className="text-danger">*</span>
               </label>
               <select
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
-                className="w-full px-3.5 py-2.5 text-xs rounded-xl border border-slate-200 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition bg-white"
+                className="w-full px-3.5 py-2.5 text-xs rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition"
               >
                 {CATEGORIES.map((cat) => (
                   <option key={cat} value={cat}>{cat}</option>
@@ -254,7 +254,7 @@ export default function ReportItemPage() {
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-navy mb-1.5">
+              <label className="block text-xs font-bold text-navy dark:text-slate-200 mb-1.5">
                 Date &amp; Estimated Time <span className="text-danger">*</span>
               </label>
               <input
@@ -262,7 +262,7 @@ export default function ReportItemPage() {
                 required
                 value={dateOccurred}
                 onChange={(e) => setDateOccurred(e.target.value)}
-                className="w-full px-3.5 py-2 text-xs rounded-xl border border-slate-200 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition bg-white"
+                className="w-full px-3.5 py-2 text-xs rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition"
               />
             </div>
           </div>
@@ -270,13 +270,13 @@ export default function ReportItemPage() {
           {/* Location Dropdown & Detail */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-bold text-navy mb-1.5">
+              <label className="block text-xs font-bold text-navy dark:text-slate-200 mb-1.5">
                 Campus Location / Block <span className="text-danger">*</span>
               </label>
               <select
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
-                className="w-full px-3.5 py-2.5 text-xs rounded-xl border border-slate-200 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition bg-white"
+                className="w-full px-3.5 py-2.5 text-xs rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition"
               >
                 {LOCATIONS.map((loc) => (
                   <option key={loc} value={loc}>{loc}</option>
@@ -285,7 +285,7 @@ export default function ReportItemPage() {
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-navy mb-1.5">
+              <label className="block text-xs font-bold text-navy dark:text-slate-200 mb-1.5">
                 Specific Spot / Room Details
               </label>
               <input
@@ -293,14 +293,14 @@ export default function ReportItemPage() {
                 value={locationDetail}
                 onChange={(e) => setLocationDetail(e.target.value)}
                 placeholder="e.g. SJT 412 3rd row, TT Nescafe bench"
-                className="w-full px-3.5 py-2.5 text-xs rounded-xl border border-slate-200 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition"
+                className="w-full px-3.5 py-2.5 text-xs rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition"
               />
             </div>
           </div>
 
           {/* Description */}
           <div>
-            <label className="block text-xs font-bold text-navy mb-1.5">
+            <label className="block text-xs font-bold text-navy dark:text-slate-200 mb-1.5">
               Description <span className="text-danger">*</span>
             </label>
             <textarea
@@ -309,21 +309,21 @@ export default function ReportItemPage() {
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               placeholder="Provide identifiable characteristics (color, brand, visible stickers, condition). Note: Do NOT mention your secret detail if you found it!"
-              className="w-full px-3.5 py-2.5 text-xs rounded-xl border border-slate-200 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition resize-none leading-relaxed"
+              className="w-full px-3.5 py-2.5 text-xs rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition resize-none leading-relaxed"
             />
-            <p className="text-[10px] text-muted mt-1">Min 10 characters.</p>
+            <p className="text-[10px] text-muted dark:text-slate-400 mt-1">Min 10 characters.</p>
           </div>
 
           {/* FOUND ONLY: Secret Detail & Where is the item now */}
           {type === 'found' && (
-            <div className="p-4 rounded-2xl bg-emerald-50/60 border border-emerald-200/80 space-y-4">
-              <div className="flex items-center gap-2 text-emerald-900 text-xs font-bold">
-                <Shield className="w-4 h-4 text-emerald-700" />
+            <div className="p-4 rounded-2xl bg-emerald-50/60 dark:bg-emerald-950/20 border border-emerald-200/80 dark:border-emerald-800/40 space-y-4">
+              <div className="flex items-center gap-2 text-emerald-900 dark:text-emerald-300 text-xs font-bold">
+                <Shield className="w-4 h-4 text-emerald-700 dark:text-emerald-400" />
                 <span>Verification Protection (Found Items Only)</span>
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-emerald-950 mb-1">
+                <label className="block text-xs font-bold text-emerald-950 dark:text-emerald-200 mb-1">
                   Secret Detail only the real owner would know <span className="text-danger">*</span>
                 </label>
                 <input
@@ -332,22 +332,22 @@ export default function ReportItemPage() {
                   value={secretDetail}
                   onChange={(e) => setSecretDetail(e.target.value)}
                   placeholder="e.g. Has ₹500 note inside or student ID 24BCE1001, specific scratch on back"
-                  className="w-full px-3.5 py-2.5 text-xs rounded-xl border border-emerald-300 focus:border-emerald-600 focus:ring-1 focus:ring-emerald-600 outline-none transition bg-white"
+                  className="w-full px-3.5 py-2.5 text-xs rounded-xl border border-emerald-300 dark:border-emerald-700 focus:border-emerald-600 focus:ring-1 focus:ring-emerald-600 outline-none transition bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500"
                 />
-                <p className="text-[10px] text-emerald-700 mt-1 flex items-center gap-1">
+                <p className="text-[10px] text-emerald-700 dark:text-emerald-400 mt-1 flex items-center gap-1">
                   <Lock className="w-3 h-3" />
                   <span>Hidden from everyone. The owner must accurately describe this to claim the item.</span>
                 </p>
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-emerald-950 mb-1">
+                <label className="block text-xs font-bold text-emerald-950 dark:text-emerald-200 mb-1">
                   Where is the item currently located?
                 </label>
                 <select
                   value={itemLocation}
                   onChange={(e) => setItemLocation(e.target.value)}
-                  className="w-full px-3.5 py-2.5 text-xs rounded-xl border border-emerald-300 focus:border-emerald-600 focus:ring-1 focus:ring-emerald-600 outline-none transition bg-white"
+                  className="w-full px-3.5 py-2.5 text-xs rounded-xl border border-emerald-300 dark:border-emerald-700 focus:border-emerald-600 focus:ring-1 focus:ring-emerald-600 outline-none transition bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100"
                 >
                   <option value="with me">With me (I have the item)</option>
                   <option value="security desk">Submitted to Block Security Desk</option>
@@ -359,26 +359,26 @@ export default function ReportItemPage() {
 
           {/* Drag & Drop Photo Upload */}
           <div>
-            <label className="block text-xs font-bold text-navy mb-1.5">
-              Item Photograph {type === 'found' ? <span className="text-danger">* (Required for Found)</span> : <span className="text-muted font-normal">(Optional for Lost, powers CLIP neural matching)</span>}
+            <label className="block text-xs font-bold text-navy dark:text-slate-200 mb-1.5">
+              Item Photograph {type === 'found' ? <span className="text-danger">* (Required for Found)</span> : <span className="text-muted dark:text-slate-400 font-normal">(Optional for Lost, powers CLIP neural matching)</span>}
             </label>
 
             {imagePreview ? (
-              <div className="relative rounded-2xl border border-slate-200 overflow-hidden bg-slate-50 p-2 flex items-center gap-4">
+              <div className="relative rounded-2xl border border-slate-200 dark:border-slate-700 overflow-hidden bg-slate-50 dark:bg-slate-800 p-2 flex items-center gap-4">
                 <img
                   src={imagePreview}
                   alt="Preview"
-                  className="w-24 h-24 object-cover rounded-xl border border-slate-200 flex-shrink-0"
+                  className="w-24 h-24 object-cover rounded-xl border border-slate-200 dark:border-slate-700 flex-shrink-0"
                 />
                 <div className="flex-1 min-w-0">
-                  <p className="text-xs font-bold text-navy truncate">{imageFile?.name}</p>
-                  <p className="text-[10px] text-muted">{(imageFile?.size / 1024).toFixed(1)} KB</p>
-                  <p className="text-[11px] text-emerald-600 font-medium mt-1">Ready for neural embedding analysis</p>
+                  <p className="text-xs font-bold text-navy dark:text-slate-100 truncate">{imageFile?.name}</p>
+                  <p className="text-[10px] text-muted dark:text-slate-400">{(imageFile?.size / 1024).toFixed(1)} KB</p>
+                  <p className="text-[11px] text-emerald-600 dark:text-emerald-400 font-medium mt-1">Ready for neural embedding analysis</p>
                 </div>
                 <button
                   type="button"
                   onClick={handleRemoveImage}
-                  className="p-2 rounded-xl text-slate-400 hover:text-danger hover:bg-red-50 transition"
+                  className="p-2 rounded-xl text-slate-400 hover:text-danger hover:bg-red-50 dark:hover:bg-red-950/50 transition"
                   title="Remove photo"
                 >
                   <X className="w-4 h-4" />
@@ -389,15 +389,15 @@ export default function ReportItemPage() {
                 onDragOver={(e) => e.preventDefault()}
                 onDrop={handleDrop}
                 onClick={() => fileInputRef.current?.click()}
-                className="border-2 border-dashed border-slate-300 hover:border-primary rounded-2xl p-6 text-center cursor-pointer transition bg-slate-50/50 hover:bg-slate-50"
+                className="border-2 border-dashed border-slate-300 dark:border-slate-700 hover:border-primary dark:hover:border-primary rounded-2xl p-6 text-center cursor-pointer transition bg-slate-50/50 dark:bg-slate-800/40 hover:bg-slate-50 dark:hover:bg-slate-800"
               >
                 <div className="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center mx-auto mb-2">
                   <Upload className="w-5 h-5" />
                 </div>
-                <p className="text-xs font-bold text-slate-700">
+                <p className="text-xs font-bold text-slate-700 dark:text-slate-300">
                   Click or drag photo here to upload
                 </p>
-                <p className="text-[10px] text-muted mt-1">
+                <p className="text-[10px] text-muted dark:text-slate-400 mt-1">
                   JPG, PNG, or WebP up to 5MB. Photo is encrypted and deleted permanently upon verified return.
                 </p>
                 <input

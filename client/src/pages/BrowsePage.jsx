@@ -107,14 +107,14 @@ export default function BrowsePage() {
     <div className="space-y-6">
       {/* Top Header */}
       <div>
-        <h1 className="text-2xl font-black text-navy tracking-tight">Browse Campus Items</h1>
-        <p className="text-xs text-muted mt-1">
+        <h1 className="text-2xl font-black text-navy dark:text-slate-100 tracking-tight">Browse Campus Items</h1>
+        <p className="text-xs text-muted dark:text-slate-400 mt-1">
           Explore lost and found belongings across all academic and hostel blocks.
         </p>
       </div>
 
       {/* Filter and Search Bar */}
-      <div className="bg-white rounded-3xl border border-slate-200/80 shadow-soft p-5 space-y-4">
+      <div className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/80 dark:border-slate-800 shadow-soft p-5 space-y-4">
         {/* Search Input */}
         <div className="relative">
           <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
@@ -125,7 +125,7 @@ export default function BrowsePage() {
             value={search}
             onChange={(e) => { setSearch(e.target.value); setPage(1); }}
             placeholder="Search items by keywords (e.g. 'black wallet', 'Casio calculator', 'Quechua umbrella')..."
-            className="w-full pl-10 pr-4 py-2.5 text-xs rounded-xl border border-slate-200 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition"
+            className="w-full pl-10 pr-4 py-2.5 text-xs rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition"
           />
         </div>
 
@@ -133,11 +133,11 @@ export default function BrowsePage() {
         <div className="grid grid-cols-1 sm:grid-cols-4 gap-3 pt-1">
           {/* Type Filter */}
           <div>
-            <label className="block text-[11px] font-bold text-slate-600 mb-1">Report Type</label>
+            <label className="block text-[11px] font-bold text-slate-600 dark:text-slate-300 mb-1">Report Type</label>
             <select
               value={type}
               onChange={(e) => { setType(e.target.value); setPage(1); }}
-              className="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 focus:border-primary outline-none bg-white font-medium"
+              className="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 focus:border-primary outline-none font-medium"
             >
               <option value="">All (Lost &amp; Found)</option>
               <option value="lost">Lost Only</option>
@@ -147,11 +147,11 @@ export default function BrowsePage() {
 
           {/* Category Filter */}
           <div>
-            <label className="block text-[11px] font-bold text-slate-600 mb-1">Category</label>
+            <label className="block text-[11px] font-bold text-slate-600 dark:text-slate-300 mb-1">Category</label>
             <select
               value={category}
               onChange={(e) => { setCategory(e.target.value); setPage(1); }}
-              className="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 focus:border-primary outline-none bg-white font-medium"
+              className="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 focus:border-primary outline-none font-medium"
             >
               {CATEGORIES.map(c => (
                 <option key={c} value={c === 'All Categories' ? '' : c}>{c}</option>
@@ -161,11 +161,11 @@ export default function BrowsePage() {
 
           {/* Location Filter */}
           <div>
-            <label className="block text-[11px] font-bold text-slate-600 mb-1">Campus Spot</label>
+            <label className="block text-[11px] font-bold text-slate-600 dark:text-slate-300 mb-1">Campus Spot</label>
             <select
               value={location}
               onChange={(e) => { setLocation(e.target.value); setPage(1); }}
-              className="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 focus:border-primary outline-none bg-white font-medium"
+              className="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 focus:border-primary outline-none font-medium"
             >
               {LOCATIONS.map(l => (
                 <option key={l} value={l === 'All Locations' ? '' : l}>{l}</option>
@@ -177,7 +177,7 @@ export default function BrowsePage() {
           <div className="flex items-end">
             <button
               onClick={handleResetFilters}
-              className="w-full py-2 px-3 rounded-xl border border-slate-200 hover:border-slate-300 text-slate-600 hover:text-navy text-xs font-semibold flex items-center justify-center gap-1.5 transition"
+              className="w-full py-2 px-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 hover:text-navy dark:hover:text-white text-xs font-semibold flex items-center justify-center gap-1.5 transition"
             >
               <RotateCcw className="w-3.5 h-3.5" />
               <span>Reset Filters</span>
@@ -188,27 +188,27 @@ export default function BrowsePage() {
 
       {/* Results Count & Grid */}
       <div className="space-y-4">
-        <div className="flex items-center justify-between text-xs text-muted">
-          <span>Found <strong className="text-navy">{totalItems}</strong> active items</span>
+        <div className="flex items-center justify-between text-xs text-muted dark:text-slate-400">
+          <span>Found <strong className="text-navy dark:text-slate-200">{totalItems}</strong> active items</span>
           <span>Page {page} of {totalPages}</span>
         </div>
 
         {loading ? (
-          <div className="py-20 text-center text-muted text-xs animate-pulse">
+          <div className="py-20 text-center text-muted dark:text-slate-400 text-xs animate-pulse">
             Loading campus listings...
           </div>
         ) : items.length === 0 ? (
-          <div className="bg-white rounded-3xl border border-slate-200/80 p-12 text-center shadow-soft">
-            <div className="w-12 h-12 rounded-2xl bg-slate-100 text-slate-400 mx-auto flex items-center justify-center mb-3">
+          <div className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/80 dark:border-slate-800 p-12 text-center shadow-soft">
+            <div className="w-12 h-12 rounded-2xl bg-slate-100 dark:bg-slate-800 text-slate-400 dark:text-slate-500 mx-auto flex items-center justify-center mb-3">
               <Search className="w-6 h-6" />
             </div>
-            <h3 className="font-bold text-navy text-sm">No Items Matched Your Search</h3>
-            <p className="text-xs text-muted max-w-sm mx-auto mt-1">
+            <h3 className="font-bold text-navy dark:text-slate-100 text-sm">No Items Matched Your Search</h3>
+            <p className="text-xs text-muted dark:text-slate-400 max-w-sm mx-auto mt-1">
               Try adjusting your search terms, changing the location, or resetting the filters.
             </p>
             <button
               onClick={handleResetFilters}
-              className="mt-4 px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-navy text-xs font-semibold transition"
+              className="mt-4 px-4 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-navy dark:text-slate-200 text-xs font-semibold transition"
             >
               Clear All Filters
             </button>
@@ -227,20 +227,20 @@ export default function BrowsePage() {
             <button
               disabled={page <= 1}
               onClick={() => setPage(p => Math.max(1, p - 1))}
-              className="p-2 rounded-xl border border-slate-200 bg-white text-slate-600 hover:text-navy disabled:opacity-40 transition"
+              className="p-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:text-navy dark:hover:text-white disabled:opacity-40 transition"
               title="Previous Page"
             >
               <ChevronLeft className="w-4 h-4" />
             </button>
 
-            <span className="text-xs font-semibold text-slate-700 px-3">
+            <span className="text-xs font-semibold text-slate-700 dark:text-slate-300 px-3">
               {page} / {totalPages}
             </span>
 
             <button
               disabled={page >= totalPages}
               onClick={() => setPage(p => Math.min(totalPages, p + 1))}
-              className="p-2 rounded-xl border border-slate-200 bg-white text-slate-600 hover:text-navy disabled:opacity-40 transition"
+              className="p-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:text-navy dark:hover:text-white disabled:opacity-40 transition"
               title="Next Page"
             >
               <ChevronRight className="w-4 h-4" />
