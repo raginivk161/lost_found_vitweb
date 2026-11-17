@@ -632,64 +632,88 @@ Where:
 ### 1. User Authentication Interface
 The login screen enforces institutional access control, allowing students to access their personalized dashboards while restricting unauthorized visitors.
 
-![Figure 4.2: Student Sign-In & Authentication Interface](media_1794932601535_68f4d10a.jpg)  
-*Figure 4.2: Student Sign-In & Authentication Interface*
+![Fig 4.2: Student Sign-In & Authentication Interface](report_images/fig_4_2_login.png)  
+*Fig 4.2: Student Sign-In & Authentication Interface*
 
 ---
 
 ### 2. Student Central Dashboard
 The dashboard displays the active lifecycle of the student's reports, separating lost inquiries, found submissions, and incoming AI match alerts with status tags.
 
-![Figure 4.3: Student Central Dashboard](media_1794932601535_68f4d10a.jpg)  
-*Figure 4.3: Student Central Dashboard with Active Report Lifecycles*
+![Fig 4.3: Student Central Dashboard with Active Report Lifecycles](report_images/fig_4_3_dashboard.png)  
+*Fig 4.3: Student Central Dashboard with Active Report Lifecycles*
 
 ---
 
 ### 3. Reporting Interface & Private Secret Detail Ingestion
-When logging a found item, the finder specifies a private identifying mark (e.g., *"Decathlon Quechua tag with small yellow wrist lanyard"*), which is masked from public view.
+When logging a found item, the finder specifies a private identifying mark (e.g., “Decathlon Quechua tag with small yellow wrist lanyard”), which is masked from public view.
 
-![Figure 4.4: Lost and Found Reporting Interface](media_1794932601535_68f4d10a.jpg)  
-*Figure 4.4: Lost and Found Reporting Interface with Secret Detail Input*
+![Fig 4.4: Lost and Found Reporting Interface with Secret Detail Input](report_images/fig_4_4_report.png)  
+*Fig 4.4: Lost and Found Reporting Interface with Secret Detail Input*
 
 ---
 
 ### 4. Multimodal Match Inspection & Explainable Scoring
-When a match is formed, the student inspects a transparent breakdown of the $92\%$ match score across image, text, category, and location dimensions.
+When a match is formed, the student inspects a transparent breakdown of the 92% match score across image, text, category, and location dimensions.
 
-![Figure 4.5: AI Match Inspection](media_1794932601535_68f4d10a.jpg)  
-*Figure 4.5: AI Match Inspection & Explainable 5-Factor Score Breakdown*
-
----
-
-### 5. Ownership Verification & 3-Attempt Lockout
-The owner enters their claim description. If incorrect details are submitted three times, the claim locks and displays an informational banner that the report has been forwarded to campus security.
-
-![Figure 4.6: Locked Claim Notification](media_1794932601535_68f4d10a.jpg)  
-*Figure 4.6: Locked Claim Notification after 3 Failed Attempts*
+![Fig 4.5: AI Match Inspection & Explainable 5-Factor Score Breakdown](report_images/fig_4_5_match_detail.png)  
+*Fig 4.5: AI Match Inspection & Explainable 5-Factor Score Breakdown*
 
 ---
 
-### 6. Campus Security Admin Console & Flagged Claims Desk
-Administrators log in via `/admin/login` and navigate to the **Flagged Claims Review** tab, where they inspect ground-truth secrets against student answers and execute manual verifications.
+### 5. Ownership Claim Verification Interface (Step 1)
+The owner enters a description of the item’s hidden identifying detail. The interface reports the number of attempts remaining after each incorrect submission, without ever revealing the stored secret.
 
-![Figure 4.7: Admin Flagged Claims Dispute Desk](media_1794932601535_68f4d10a.jpg)  
-*Figure 4.7: Admin Flagged Claims Dispute Resolution Desk*
-
----
-
-### 7. Permanent 6-Digit Handover Code & Direct Gmail Compose
-Once approved, the 6-digit code (`934914`) remains permanently on the owner's screen. Clicking *"Open in Gmail (Pre-written Details)"* launches a ready-to-send draft in Google Mail.
-
-![Figure 4.8: Handover Code & Direct Gmail Compose](media_1794932601535_68f4d10a.jpg)  
-*Figure 4.8: Persistent 6-Digit Handover Code & Direct Gmail Webmail Integration*
+![Fig 4.6: Ownership Claim Verification Interface (Step 1)](report_images/fig_4_6_claim_verification.png)  
+*Fig 4.6: Ownership Claim Verification Interface (Step 1)*
 
 ---
 
-### 8. Physical Return Confirmation & Automated Photo Wipe
-The finder enters the 6-digit code. On confirmation, 10 Karma points are awarded, and the server's storage disk is automatically purged of all associated photographs.
+### 6. Locked Claim Notification after 3 Failed Attempts
+If incorrect details are submitted three times, the claim locks and displays an informational banner that the report has been forwarded to campus security.
 
-![Figure 4.9: Handover Completion](media_1794932601535_68f4d10a.jpg)  
-*Figure 4.9: Handover Completion, Karma Credit & Automated Photo Purge*
+![Fig 4.7: Locked Claim Notification after 3 Failed Attempts](report_images/fig_4_7_locked_claim.png)  
+*Fig 4.7: Locked Claim Notification after 3 Failed Attempts*
+
+---
+
+### 7. Dedicated Campus Security Admin Login Portal (/admin/login)
+Administrators authenticate through a dedicated portal that is isolated from the student sign-in; student credentials are denied access to the admin console.
+
+![Fig 4.8: Dedicated Campus Security Admin Login Portal (/admin/login)](report_images/fig_4_8_admin_login.png)  
+*Fig 4.8: Dedicated Campus Security Admin Login Portal (/admin/login)*
+
+---
+
+### 8. Admin Flagged Claims Dispute Resolution Desk
+On the Flagged Claims Review tab, administrators inspect ground-truth secrets against student answers and execute manual verifications or attempt resets.
+
+![Fig 4.9: Admin Flagged Claims Dispute Resolution Desk](report_images/fig_4_9_admin_flagged_desk.png)  
+*Fig 4.9: Admin Flagged Claims Dispute Resolution Desk*
+
+---
+
+### 9. Persistent 6-Digit Handover Code & Unlocked Contact Card
+Once approved, the 6-digit code (934914) remains permanently on the owner’s screen and contact details are unlocked, even after refreshing the browser or changing devices.
+
+![Fig 4.10: Persistent 6-Digit Handover Code & Unlocked Contact Card](report_images/fig_4_10_handover_code.png)  
+*Fig 4.10: Persistent 6-Digit Handover Code & Unlocked Contact Card*
+
+---
+
+### 10. Direct Gmail Webmail Pre-Composed Recovery Draft
+Clicking “Open in Gmail (Pre-written Details)” launches a ready-to-send draft in Google Mail, pre-populated with the recipient, subject, handover code and campus meeting points.
+
+![Fig 4.11: Direct Gmail Webmail Pre-Composed Recovery Draft](report_images/fig_4_11_gmail_draft.png)  
+*Fig 4.11: Direct Gmail Webmail Pre-Composed Recovery Draft*
+
+---
+
+### 11. Handover Completion, Karma Credit & Automated Photo Purge
+The finder enters the 6-digit code. On confirmation, 10 Karma points are awarded, and the server’s storage disk is automatically purged of all associated photographs.
+
+![Fig 4.12: Handover Completion, Karma Credit & Automated Photo Purge](report_images/fig_4_12_handover_completion.png)  
+*Fig 4.12: Handover Completion, Karma Credit & Automated Photo Purge*
 
 ---
 
