@@ -176,13 +176,15 @@ export default function Navbar() {
                     <span>My Reports</span>
                   </Link>
 
-                  <Link
-                    to="/admin"
-                    className="flex items-center gap-2 px-4 py-2 text-xs text-purple-700 dark:text-purple-400 font-semibold hover:bg-purple-50 dark:hover:bg-purple-900/30 transition"
-                  >
-                    <Shield className="w-4 h-4 text-purple-600 dark:text-purple-400" />
-                    <span>Admin Database Viewer</span>
-                  </Link>
+                  {user?.role === 'admin' && (
+                    <Link
+                      to="/admin"
+                      className="flex items-center gap-2 px-4 py-2 text-xs text-purple-700 dark:text-purple-400 font-semibold hover:bg-purple-50 dark:hover:bg-purple-900/30 transition"
+                    >
+                      <Shield className="w-4 h-4 text-purple-600 dark:text-purple-400" />
+                      <span>Admin Database Viewer</span>
+                    </Link>
+                  )}
 
                   <div className="border-t border-slate-100 dark:border-slate-800 my-1"></div>
 

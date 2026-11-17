@@ -17,6 +17,7 @@ import MatchDetailPage from './pages/MatchDetailPage';
 import ItemDetailPage from './pages/ItemDetailPage';
 import ProfilePage from './pages/ProfilePage';
 import AdminPage from './pages/AdminPage';
+import AdminLoginPage from './pages/AdminLoginPage';
 import NotFoundPage from './pages/NotFoundPage';
 
 // Protected Route wrapper
@@ -33,6 +34,25 @@ function ProtectedRoute({ children }) {
 
   if (!user) {
     return <Navigate to="/login" replace />;
+  }
+
+  return children;
+}
+
+// Dedicated Admin Route wrapper — strictly requires role === 'admin'
+function AdminRoute({ children }) {
+  const { user, loading } = useAuth();
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-slate-950 flex items-center justify-center text-xs text-slate-400">
+        Verifying Administrator Access...
+      </div>
+    );
+  }
+
+  if (!user || user.role !== 'admin') {
+    return <Navigate to="/admin/login" replace />;
   }
 
   return children;
@@ -69,6 +89,7 @@ export default function App() {
           {/* Auth Pages */}
           <Route path="/login" element={<AuthPage />} />
           <Route path="/signup" element={<AuthPage />} />
+          <Route path="/admin/login" element={<AdminLoginPage />} />
 
           {/* Protected Campus Portal Routes */}
           <Route
@@ -147,11 +168,11 @@ export default function App() {
           <Route
             path="/admin"
             element={
-              <ProtectedRoute>
+              <AdminRoute>
                 <AppLayout>
                   <AdminPage />
                 </AppLayout>
-              </ProtectedRoute>
+              </AdminRoute>
             }
           />
 

@@ -255,6 +255,42 @@ router.post('/login', loginLimiter, async (req, res) => {
   }
 });
 
+// POST /admin-login - Dedicated login for Campus Security & Database Admin
+router.post('/admin-login', loginLimiter, async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    if (!email || !password) {
+      return res.status(400).json({ error: 'Admin email and password are required.' });
+    }
+
+    const db = getDb();
+    const user = db.prepare('SELECT * FROM users WHERE email = ?').get(email.toLowerCase());
+    if (!user) {
+      return res.status(401).json({ error: 'Invalid administrator credentials.' });
+    }
+
+    if (user.role !== 'admin') {
+      return res.status(403).json({
+        error: 'Access denied. This portal is strictly for Campus Security Administrators. Students please sign in via Student Login.'
+      });
+    }
+
+    const validPassword = await bcrypt.compare(password, user.password_hash);
+    if (!validPassword) {
+      return res.status(401).json({ error: 'Invalid administrator credentials.' });
+    }
+
+    setAuthCookie(res, user);
+    res.json({
+      message: 'Admin authentication successful.',
+      user: { id: user.id, name: user.name, email: user.email, role: user.role, karma_points: user.karma_points },
+    });
+  } catch (err) {
+    console.error('Admin login error:', err);
+    res.status(500).json({ error: 'Admin login failed.' });
+  }
+});
+
 // POST /logout
 router.post('/logout', (req, res) => {
   res.clearCookie('token', { httpOnly: true, sameSite: 'lax' });

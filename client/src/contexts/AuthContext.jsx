@@ -41,6 +41,19 @@ export function AuthProvider({ children }) {
     return data;
   }
 
+  async function adminLogin(email, password) {
+    const res = await fetch('/api/auth/admin-login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
+      body: JSON.stringify({ email, password }),
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Admin login failed');
+    setUser(data.user);
+    return data;
+  }
+
   async function signup(userData) {
     const res = await fetch('/api/auth/signup', {
       method: 'POST',
@@ -99,6 +112,7 @@ export function AuthProvider({ children }) {
         user,
         loading,
         login,
+        adminLogin,
         signup,
         verifyOtp,
         resendOtp,

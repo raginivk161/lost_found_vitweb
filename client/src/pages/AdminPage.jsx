@@ -67,6 +67,29 @@ export default function AdminPage() {
     );
   });
 
+  if (user?.role !== 'admin') {
+    return (
+      <div className="py-20 text-center space-y-4 max-w-md mx-auto">
+        <div className="w-16 h-16 rounded-2xl bg-red-100 dark:bg-red-950/50 flex items-center justify-center mx-auto text-danger">
+          <Shield className="w-8 h-8" />
+        </div>
+        <h2 className="text-xl font-black text-navy dark:text-slate-100">Restricted Admin Access</h2>
+        <p className="text-xs text-muted dark:text-slate-400 leading-relaxed">
+          The Database Inspector and Audit Logs are strictly restricted to Campus Security Administrators. Student accounts do not have permission to view raw database records.
+        </p>
+        <div className="pt-2">
+          <a
+            href="/admin/login"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold shadow-md transition"
+          >
+            <Key className="w-4 h-4" />
+            <span>Campus Security Admin Sign In</span>
+          </a>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="space-y-6">
       {/* Header */}
@@ -74,7 +97,7 @@ export default function AdminPage() {
         <div>
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-purple-100 dark:bg-purple-950/40 text-purple-700 dark:text-purple-300 text-xs font-bold mb-2">
             <Shield className="w-3.5 h-3.5" />
-            <span>Admin Live SQLite Inspector • Demo Mode</span>
+            <span>Campus Security Administration • SQLite Inspector</span>
           </div>
           <h1 className="text-2xl font-black text-navy dark:text-slate-100 tracking-tight">Database Viewer &amp; Audit Logs</h1>
           <p className="text-xs text-muted dark:text-slate-400 mt-1">

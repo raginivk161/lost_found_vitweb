@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams, Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import {
   Sparkles,
@@ -8,6 +8,7 @@ import {
   User,
   Hash,
   ArrowRight,
+  Shield,
   ShieldAlert,
   Clock,
   RefreshCw,
@@ -495,6 +496,17 @@ export default function AuthPage() {
               </form>
             </div>
           )}
+        </div>
+
+        {/* Separate Admin Portal Link */}
+        <div className="mt-4 text-center">
+          <Link
+            to="/admin/login"
+            className="inline-flex items-center gap-1.5 text-xs text-muted dark:text-slate-500 hover:text-navy dark:hover:text-slate-300 transition font-medium"
+          >
+            <Shield className="w-3.5 h-3.5 text-purple-600 dark:text-purple-400" />
+            <span>Campus Security / Admin Access</span>
+          </Link>
         </div>
       </div>
     </div>
